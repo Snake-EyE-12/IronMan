@@ -25,15 +25,15 @@ class StandardCamera(Camera):
         super().__init__(capture, view)
 
     def open(self):
-        self.capture.open(self)
-        self.view.open(self)
+        self.capture.open()
+        self.view.open()
     def run(self):
         while True:
-            frame, timestamp = self.capture.get_frame(self)
-            self.view.display(self, frame, timestamp)
+            frame, timestamp = self.capture.get_frame()
+            self.view.display(frame, timestamp)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
     def close(self):
-        self.capture.close(self)
-        self.view.close(self)
+        self.capture.close()
+        self.view.close()
