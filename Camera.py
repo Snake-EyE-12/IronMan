@@ -29,8 +29,8 @@ class StandardCamera(Camera):
         self.view.open(self)
     def run(self):
         while True:
-            frame = self.capture.get_frame(self)
-            self.view.display(self, frame)
+            frame, timestamp = self.capture.get_frame(self)
+            self.view.display(self, frame, timestamp)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 

@@ -13,7 +13,7 @@ class Capture(ABC):
         pass
     @abstractmethod
     def get_frame(self):
-        return None
+        return None, 0
 
 class Webcam(Capture):
     def __init__(self):
@@ -31,7 +31,7 @@ class Webcam(Capture):
 
     def get_frame(self):
         success, frame = self.device.read()
-        return frame
+        return frame, cv2.CAP_PROP_POS_MSEC
 
 class FakeCapture(Capture):
     def __init__(self):
