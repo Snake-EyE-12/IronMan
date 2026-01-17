@@ -1,0 +1,39 @@
+from abc import ABC, abstractmethod
+
+import cv2
+
+
+class Camera(ABC):
+    def __init__(self, capture, view):
+        self.capture = capture
+        self.view = view
+
+    @abstractmethod
+    def open(self):
+        pass
+
+    @abstractmethod
+    def run(self):
+        pass
+
+    @abstractmethod
+    def close(self):
+        pass
+
+class StandardCamera(Camera):
+    def __init__(self, capture, view):
+        super().__init__(capture, view)
+
+    def open(self):
+        self.capture.open(self)
+        self.view.open(self)
+    def run(self):
+        while True:
+            frame = self.capture.get_frame(self)
+            self.view.display(self, frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+    def close(self):
+        self.capture.close(self)
+        self.view.close(self)
